@@ -1,0 +1,580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html>
+<!-- SUPER DOBRY FTP/HTML GALERY ENDŻIN stasinek@sstsoft.pl / 2016 / Licencja: Róbta co chceta -->
+  <head>
+	<title>Galeria HOTZLOT 2016 dobreprogrmy.pl</title>
+	<meta name="keywords" content="dobre programy hotzlot stasinek sstsoft" />
+	<meta name="description" content=""/>
+	<meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" />
+	<meta name="language" content="pl" />
+	<style>table { border-collapse: collapse; padding: 8px 0px; width: 100%; overflow:hidden; } tr { border: 2px solid red; } td { padding: 8px; border: 2px solid grey; background-color: #D5D5D5;} td:hover {background-color: #F5F5F5;}</style>
+	<style>
+	div {
+	margin: 0px; padding: 0px;
+	}
+	.btnp {
+  background: #34db98;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 20px;
+  font-family: Helvetica;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 5px 10px 5px 10px;
+  border: solid #1f8d62 3px;
+  text-decoration: none;
+  display: inline-block;
+}
+.btnp:hover {
+  background: #3cfdb0;
+  background-image: -webkit-linear-gradient(top, #3cfdb0, #34db98);
+  background-image: -moz-linear-gradient(top, #3cfdb0, #34db98);
+  background-image: -ms-linear-gradient(top, #3cfdb0, #34db98);
+  background-image: -o-linear-gradient(top, #3cfdb0, #34db98);
+  background-image: linear-gradient(to bottom, #3cfdb0, #34db98);
+  text-decoration: none;
+  cursor: pointer;
+}
+	</style>
+	
+	<style>
+	#stopka {
+		height: 1.5em;
+		width: 100%;
+		overflow: hidden;
+		display: block; padding; 0px 8px; background-color: #83c000; 
+		vertical-align: middle;
+	}
+	#stopka * { 
+		overflow: hidden;
+	}
+	#stopka-triangleu { 
+		top: 0; left: 0;
+		width:5.5em; 
+		height: 0; 
+		border-top: 0.75em solid black; 
+		border-right: 0.75em solid transparent;
+		display: block;
+	}
+	#stopka-triangleb { 
+		top: 0.75em; left: 0;
+		width:5.5em; 
+		height: 0; 
+		border-bottom: 0.75em solid black; 
+		border-right: 0.75em solid transparent;
+		display: block;
+	}
+	#stopka-text { 
+		position: relative;
+		padding: 0.125em 1em; margin: 0;
+		top: 0; left: 0;
+		height: 1.25em; 
+		width: auto; 
+		display: inline-block;
+		text-align: center;
+	}
+	#stopka-text * { 
+		text-align: center;
+		float: none;
+		margin-left: auto; margin-right: auto;
+		font-family: Helvetica;
+		
+	}
+	#stopka-triangle2b { 
+		top: 0.75em; left: 0;
+		width: 5.5em; 
+		height: 0; 
+		overflow: hidden;
+		border-bottom: 0.75em solid black; 
+		border-left: 0.75em solid transparent;
+		display: block;
+	}
+	#stopka-triangle2u { 
+		top: 0; left: 0;
+		width: 5.5em; 
+		height: 0; 
+		overflow: hidden;
+		border-top: 0.75em solid black; 
+		border-left: 0.75em solid transparent;
+		display: block;
+	}
+	</style>
+<!--GOOGLE ANALITYCS-->
+	<script type="text/javascript" src="/common/js/google-analitycs.js">		</script>
+ </head>
+
+  <body>
+<!-------------------------------------------------------------------->
+<!-- WYGINAM SMIALO CIALO, div na informacje ogólne -->
+<!-------------------------------------------------------------------->
+ <div id="informacje" style="width: 100% height: 4em"></div>
+
+<!-------------------------------------------------------------------->
+<!-- JS ciasteczka, okna logowania, listy galerii, listy miniatur, okno powiekszenia miniatur + odnośnik do orginału -->
+<!-------------------------------------------------------------------->
+
+ <script type="text/javascript">
+//---------------------------------------------------------------------
+// COOKIE
+//---------------------------------------------------------------------
+
+function set_cookie(c_name, c_value, c_exdays) 
+	{
+    var d = new Date();
+    d.setTime(d.getTime() + (c_exdays*24*60*60*1000));
+    var c_expires = "expires="+ d.toUTCString();
+    document.cookie = c_name + "=" + c_value + "; " + c_expires;
+}
+function get_cookie(c_name) 
+	{
+    var name = c_name + "=";
+    var c_splited = document.cookie.split(';');
+    for(var i = 0; i <c_splited.length; i++) 
+		{
+        var c_item = c_splited[i];
+        while (c_item.charAt(0)==' ') 
+			{
+            c_item = c_item.substring(1);
+			}
+        if (c_item.indexOf(name) == 0) 
+			{
+            return c_item.substring(name.length,c_item.length);
+			}
+		}
+    return "";
+	}
+
+//---------------------------------------------------------------------
+// POBIERANIE LISTY PLIKOW i UŻYTKOWNIKÓW NA SERWERZE FTP Z GOTOWCÓW W PLIKU TEKSTOWYM NA SERWERZE "PROXY"
+// Lista powstaje po zsynchronizowaniu plików programem WinSCP z serwerem FTP.hotzlot.pl
+// Windows CMD: DIR /b > galeria_userzy.txt
+// Windows CMD: DIR /b /s > galeria_pliki.txt
+//AJAX w Chromium nie dopuszcza do XMLHttpRequesr z serwera FTP pomimo zastosowania obejścia:
+//pliki_req.setRequestHeader('Content-Type', "text/plain");
+//pliki_req.send("Content of filename.txt. This will be in filename.txt"); 
+//plik galeria.html musi być na serwere "proxy" ewentualnie komplet plików pobrany na dysk, URL w poniższych zapytaniajc AJAX zmienione na file://./galeria_txt
+//---------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------
+// FTP LOGIN BOX
+//---------------------------------------------------------------------
+
+var ftp_username = "";
+var ftp_password = "";
+document.write("<div id=\"modal_box\" style=\"position: fixed; display: none; z-index: 1; width: 80%; height: auto; left: 10%; top: 5%; border-radius: 30px 30px 0 30px; border: 5px solid #AAAAAA; background-color: rgba(255,0,0,0.9); overflow:auto; overflow-x:hidden;box-shadow: 2px 2px 8px black;\">");
+document.write("<form id=\"ftp\" style=\"margin: 20px; float: center; position: relative;\">");
+document.write("<span style=\"color: white;\"> Zanim przejdziesz do galerii podaj login i hasło do serwera FTP.hotzlot.pl</span>");
+document.write("<button type=\"button\" onclick=\"ftp_exit()\" style=\"float: right;\"><b>X</b></button>");
+document.write("<div style=\"height: 20px; width: 100%;\"></div>");
+document.write("<span style=\"color: white;\"> User: </span><input type=\"text\" name=\"username\" value=\"\" id=\"username\" style=\"float: right;\"></input>");
+document.write("<div style=\"height: 10px; width: 100%;\"></div>");
+document.write("<span style=\"color: white;\"> Password: </span><input type=\"password\" name=\"password\" value=\"\" id=\"password\" style=\"float: right;\"></input> ");
+document.write("<div style=\"height: 10px; width: 100%;\"></div>");
+document.write("<button type=\"button\" onclick=\"ftp_fill_from_form()\" style=\"float: right;\"><b>DALEJ >></b></button>");
+document.write("<div style=\"display: block; height: 30px; width: 100%;\"></div>");
+document.write("<hr>");
+document.write("<span style=\"color: white;\"> Jeżeli nie znasz loginu i hasła, ale chcesz obejrzeć galerie i byłeś uczestnikiem HotZlotu - Sprawdź wśród wiadomości e-mail od rejestracja@hotzlot.pl Jeżeli chcesz dodać swoje fotografie użyj programu np. WinSCP który jest do pobrania na stronie portalu: <a target=\"_blank\" href=\"http://www.dobreprogramy.pl/WinSCP,Program,Windows,12713.html\">http://www.dobreprogramy.pl/WinSCP,Program,Windows,12713.html</a></span><br>");
+document.write("<span style=\"color: white;\"> Jeśli już to zrobiłeś, ale twojej galerii nie ma na liście, daj znać: użytkownikowi: \"stasinek\" aby utworzył dla Ciebie miniatury - pliki z dopiskiem (Small) w zalecanym rozmiarze 640x480, oraz dodał do listy plików w galerii.</span>");
+document.write("</form>");
+document.write("</div>");
+
+ftp_fill_from_cookie();
+document.getElementById("modal_box").style.display = "block";
+
+function ftp_fill_from_cookie() 
+	{
+	ftp_username = get_cookie("ftp_username");
+	document.forms.namedItem("ftp").elements.namedItem("username").value = ftp_username;
+	ftp_password = get_cookie("ftp_password");
+	document.forms.namedItem("ftp").elements.namedItem("password").value = ftp_password;
+	}
+function ftp_fill_from_form() 
+	{
+	ftp_username = document.forms.namedItem("ftp").elements.namedItem("username").value;
+	set_cookie("ftp_username",ftp_username,1);
+	ftp_password = document.forms.namedItem("ftp").elements.namedItem("password").value;
+	set_cookie("ftp_password",ftp_password,1);
+	document.getElementById("modal_box").style.display = "none";
+	var url = "ftp://"  + encodeURIComponent(ftp_username) + ":" + encodeURIComponent(ftp_password) + "@galeria.e-kei.pl/m/IMG_2423%20(Small).jpg";
+
+	var stopka_fotka = document.getElementById("stopka_fotka");
+	var stopka_fotka_img = document.createElement("img");
+	var m = 6 * 10;
+	var a = document.getElementById("bottom").clientHeight;
+	var b = document.getElementById("instrukcje").clientHeight; 
+	var c = document.getElementById("main").clientHeight;
+	var d = document.getElementById("informacje").clientHeight;
+	var h = window.innerHeight - a - b - c - d - m; 
+	if (h< 100) h = 100;
+	stopka_fotka_img.height = h;	
+	stopka_fotka_img.style.display = "inline-block";
+	stopka_fotka_img.style.marginLeft = "auto";
+	stopka_fotka_img.style.marginRight = "auto";//; margin-right: auto; top: 0; left: 0; position: relative"; 
+	stopka_fotka_img.onclick = function() { pliki_powiekszenie_miniatury(this.src); };
+	stopka_fotka_img.src = url;
+	stopka_fotka.appendChild(stopka_fotka_img);
+	stopka_fotka.style.display = "block";
+	}
+function ftp_exit()
+	{
+	if (confirm("Czy napewno chcesz zrezygnować?")) { 	
+		document.getElementById("modal_box").style.display = "none";
+		window.open('','_self').close(); }
+	}
+
+//---------------------------------------------------------------------
+// PHOTO BOX
+//---------------------------------------------------------------------
+
+document.write("<div id=\"photo_box\" style=\"position: fixed; display: none; z-index: 2; width: auto; padding: 10px; margin: auto; height: auto; left: 10%; top: 5%; border-radius: 30px 30px 0 30px; border: 5px solid #AAAAAA; background-color: rgba(0,0,128,0.9); overflow:auto; overflow-x:hidden;box-shadow: 2px 2px 8px black;\">");
+document.write("<div style=\"position: relative; margin: 20px;  vertical-align: middle; text-align:center; \">");
+document.write("<div style=\"position: relative; display: block; \"><img onclick=\"pliki_ukryj_powiekszenie()\" id=\"photo_box_img\" src=\"\" style=\"float: center; max-width:100%; height:auto; margin-left: auto; margin-right: display: block; \"></div>");
+document.write("<div style=\"position: relative; display: block; width: auto; height: 20px; \"></div>");
+document.write("<div style=\"position: relative; width: auto; height: 50px\">");
+document.write("<div class=\"btnp\" onclick=\"pliki_prev()\" style=\"float: left; margin: 10px 10px 10px 10px;\">&lt&lt</div>");
+document.write("<div class=\"btnp\" onclick=\"pliki_next()\" style=\"float: left; margin: 10px 10px 10px 10px;\">&gt&gt</div>");
+document.write("<div class=\"btnp\" onclick=\"pliki_ukryj_powiekszenie()\" style=\"float: right; margin: 10px 0px;\">UKRYJ</div>");
+document.write("<div class=\"btnp\" onclick=\"pliki_pobierz_duze()\" style=\"float: right; margin: 10px 10px;\">POBIERZ ORGINAŁ</div>");
+document.write("</div>");
+document.write("</div>");
+document.write("</div>");
+
+var pliki_prev_last = 0;
+var pliki_zoom = 0;
+var pliki_username;
+var pliki_lista;
+var pliki_req = new XMLHttpRequest();
+function pliki_odbierz()
+{
+if (pliki_req.readyState == 4 && pliki_req.status == 200) { 
+    var poprawne_slasze = pliki_req.responseText.replace(/\\/g,"/");
+    pliki_lista = poprawne_slasze.split(/\n/);
+	var pliki_lista_real_count = 0;
+	for (z = 0; z < pliki_lista.length; z++) if (pliki_lista[z].search("(Small)") < 0 && pliki_lista[z].search(".") >= 0) pliki_lista_real_count++;
+	document.getElementById("informacje").innerHTML = "Poprawnie wczytałem liste plików. Aktualnie w naszej galerii jest: " + pliki_lista_real_count+ " plikow.<br>";
+   }
+}
+//pliki_req.open('HEAD','http://sstsoft.pl/galeria/galeria-dp-pliki.txt', true); 
+//pliki_req.setRequestHeader('Content-Type', "text/plain");
+//pliki_req.send(); 
+pliki_req.onreadystatechange = pliki_odbierz;
+pliki_req.open('GET','https://sstsoft.pl/galeria/galeria-dp-pliki.txt', true); 
+pliki_req.setRequestHeader('Content-Type', "text/plain");
+pliki_req.send(); 
+//FTP
+//pliki_req.setRequestHeader('Content-Type', "text/plain");
+//pliki_req.send("Content of filename.txt. This will be in filename.txt"); 
+
+function pliki_prev()
+	{
+	img = document.getElementById("photo_box_img");
+	var prev_i = pliki_zoom;
+	for (var i = pliki_zoom - 1; i >= 0; i--) {
+		var pliki_root_end = pliki_lista[i].search(pliki_username);
+			if (pliki_root_end==-1 || pliki_lista[i].search("(Small)") < 0)
+				{
+				i--;
+				continue;
+				}
+		prev_i = i;
+		break;
+		}
+	if (prev_i < 0 || pliki_zoom==prev_i) return false;
+	var prev_img = document.getElementById(String(prev_i));
+	if (prev_img==null) return false;
+	img.src = prev_img.src;
+	pliki_zoom = prev_i;
+	document.getElementById("photo_box").style.display = "block";
+	return false;
+	}
+function pliki_next()
+	{
+	img = document.getElementById("photo_box_img");
+	var next_i = pliki_zoom;
+	for (var i = pliki_zoom + 1; i < pliki_lista.length; i++) {
+		var pliki_root_end = pliki_lista[i].search(pliki_username);
+			if (pliki_root_end==-1 || pliki_lista[i].search("(Small)") < 0)
+				{
+				i++;
+				continue;
+				}
+		next_i = i;
+		break;
+		}
+	if (next_i > pliki_lista.length || pliki_zoom==next_i) return false;
+	var next_img = document.getElementById(String(next_i));
+	if (next_img==null) return false;
+	img.src = next_img.src;
+	pliki_zoom = next_i;
+	document.getElementById("photo_box").style.display = "block";
+	return false;
+	}
+function pliki_pobierz_duze()
+	{
+	 var img_src = document.getElementById("photo_box_img").src;
+	 var bez_small = img_src.replace(/\%20\(Small\)/gi,"");
+	 var bez_medium = bez_small.replace(/\%20\(Large\)/gi,"");
+	 var bez_large = bez_medium.replace(/\%20\(Medium\)/gi,"");
+	 var bez = bez_large.replace(/\%20\(Custom\)/gi,"");
+	 window.open(bez);
+	 return false;
+	}
+function pliki_powiekszenie_miniatury(img_src,img_id)
+	{
+	img = document.getElementById("photo_box_img");
+	img.src = img_src;
+	pliki_zoom = parseInt(img_id);
+	document.getElementById("photo_box").style.display = "block";
+	return false;
+	}
+function pliki_ukryj_powiekszenie()
+	{
+	document.getElementById("photo_box").style.display = "none";
+	return false;
+	}
+//---------------------------------------------------------------------
+// USERZY BOX 
+//---------------------------------------------------------------------
+	
+document.write("<div id=\"users_box\" style=\"position: fixed; display: none; z-index: 2; width: 80%; height: auto; left: 10%; top: 5%; border-radius: 30px 30px 0 30px; border: 5px solid #AAAAAA; background-color: rgba(128,192,0,0.9); overflow: auto; overflow-x:hidden;box-shadow: 2px 2px 8px black;\">");
+document.write("<div style=\"position: relative; width: auto; margin: 20px;\">");
+document.write("Lista użytkowników z galeriami zlotowych fotek.<br>");
+document.write("<hr>");
+document.write("<div id=\"users_box_lista\" style=\"width: auto;\"></div>");
+document.write("<hr>");
+document.write("<button type=\"button\" onclick=\"userzy_ukryj_liste()\" style=\"float: right; margin: 10px 0px;\"><b>UKRYJ</b></button>");
+document.write("</div>");
+document.write("</div>");
+
+var userzy_lista;
+var userzy_req = new XMLHttpRequest();
+function userzy_odbierz()
+	{
+	if (userzy_req.readyState == 4 && userzy_req.status == 200)
+		{ 
+		userzy_lista = userzy_req.responseText.split(/\n/);
+		document.getElementById("informacje").innerHTML += "Poprawnie wczytałem liste użytkowników. Aktualnie jest: " + userzy_lista.length + " galerii.<br>";
+		document.getElementById("users_box_lista").innerHTML = "";
+		for (var i = 0; i < userzy_lista.length; i++) {
+			 var user = userzy_lista[i];
+			 if (user.includes(".txt") || user.includes(".html") || user.includes("!")) continue;
+			 document.getElementById("users_box_lista").innerHTML += "<a style=\"color: #004400;\" href=\"javascript:void(0)\" onclick=\"userzy_wybierz(this.text)\">" + user + "</a>&nbsp";
+			}	
+		}
+	}
+userzy_req.onreadystatechange = userzy_odbierz;
+userzy_req.open('GET','https://sstsoft.pl/galeria/galeria-dp-userzy.txt', true); 
+userzy_req.setRequestHeader('Content-Type', "text/plain");
+userzy_req.send(); 
+
+function userzy_pokaz_liste()
+	{
+	document.getElementById("users_box").style.display = "block";
+	return false;
+	}
+function userzy_ukryj_liste()
+	{
+	document.getElementById("users_box").style.display = "none";
+	return false;
+	}
+function userzy_wybierz(user)
+	{
+	document.forms.namedItem("szukajka").elements.namedItem("username").value = user;
+	userzy_ukryj_liste();
+	tabela_refresh();	
+	return false;
+	}
+
+//---------------------------------------------------------------------
+// TWORZENIE DYNAMICZNEJ TABELI Z MINIATURAMI
+//---------------------------------------------------------------------
+
+var tabela_kolumn_max = Math.floor((window.innerWidth-20)/224); var tabela_wiersz_max = Math.floor((15*(window.innerHeight-20))/224);
+
+//SKASOWANIE TABELI MINIATUR PRZED UTWORZENIEM NOWEJ
+function tabela_reset(alertuj) 
+    {
+	if (alertuj==true) 
+		alert("Reset poprzedniej tabeli..");
+
+	var tabela = document.getElementById("tabela_miniatur");
+	var tabela_row_miniatur;
+	for (var i = tabela.rows.length - 1; i >= 0; i--)
+		{
+		tabela_row_miniatur = tabela.rows.namedItem("row_miniatur_" + i);
+		if (tabela_row_miniatur==null) 
+			continue;
+		tabela_row_miniatur.innerHTML = "";
+		tabela.deleteRow(tabela_row_miniatur.rowIndex);
+		}
+	
+	tabela_row_miniatur = tabela.rows.namedItem("row_miniatur_0");
+	if (tabela_row_miniatur==null)
+		{
+		var r = tabela.insertRow(tabela.rows.namedItem("row_button").rowIndex);
+		r.id = "row_miniatur_0";
+		var c = r.insertCell(-1);
+		c.colSpan = tabela_kolumn_max;
+		c.innerHTML = "MIEJSCE NA MINIATURY";
+		}
+	}
+function tabela_zapelnij(pliki_start, alertuj) 
+    {
+	if (ftp_username === "" || ftp_password === "") 
+		{ alert("Nie wpisałeś hasła do FTP");
+		document.getElementById("modal_box").style.display = "block";
+			return;
+		}
+	pliki_username = document.forms.namedItem("szukajka").elements.namedItem("username").value;
+	pliki_username = pliki_username.trim();	
+	var userzy_jest = false;
+	if (pliki_username.length > 0)
+	for (var i = 0; i < userzy_lista.length; i++)
+		{
+		 userzy_lista[i] = userzy_lista[i].trim(); 
+		 var c = userzy_lista[i].search(pliki_username);
+		 if (userzy_lista[i].length !== pliki_username.length) 
+			 continue;
+		  else if (c>=0) { userzy_jest = true; pliki_username = userzy_lista[i]; break; }
+		}
+	if (userzy_jest==false)
+		{ 
+		alert("Użytkownik o podanej nazwie: \"" + pliki_username + "\" nie posiada galerii.");
+		document.getElementById("users_box").style.display = "block";
+		return;
+		}
+	if (alertuj==true) 
+		alert("UWAGA. Wypelniene tabeli miniatur może potrwać kilka chwil..");
+		
+	tabela_reset(false);
+	var tabela = document.getElementById("tabela_miniatur");
+	var tabela_row_miniatur;
+	var tabela_row_filtra = tabela.rows.namedItem("row_filtra");
+	var pliki_length = pliki_lista.length;
+	var pliki_root_end = 0;
+	var pliki_name_fixed;
+	var pliki_index = pliki_start;
+	
+    for (wiersz = 0; wiersz < tabela_wiersz_max; wiersz++) {
+        for (kolumn = 0; kolumn < tabela_kolumn_max; ) {
+			if (pliki_index >= pliki_length) {
+				kolumn = tabela_kolumn_max; wiersz = tabela_wiersz_max;
+				break;
+			}
+			pliki_root_end = pliki_lista[pliki_index].search(pliki_username);
+			if (pliki_root_end==-1 || pliki_lista[pliki_index].search("(Small)")==-1)
+				{
+				pliki_index++;
+				continue;
+				}
+			if (kolumn==0 && wiersz!=0) // wstaw wiersz zanim wstawisz kolejne kolumny. 
+				{
+				var row = tabela.insertRow(tabela.rows.namedItem("row_miniatur_" + (wiersz-1)).rowIndex);
+				row.id = "row_miniatur_" + wiersz;
+				}			
+			tabela_row_miniatur = tabela.rows.namedItem("row_miniatur_" + wiersz);
+			pliki_name_fixed = pliki_lista[pliki_index].substring(pliki_root_end);
+			img_src = "ftp://" + encodeURIComponent(ftp_username) + ":" + encodeURIComponent(ftp_password) + "@ftp.hotzlot.pl/" + pliki_name_fixed;
+			var cell = tabela_row_miniatur.cells[0];
+			if (cell==null || kolumn!=0) cell = tabela_row_miniatur.insertCell(-1);
+			cell.colSpan = 1;
+			cell.innerHTML = "<a " + "id=\"" + pliki_index + "\" href=\"" + img_src + "\"" + " onclick=\"return pliki_powiekszenie_miniatury(this.href,this.id)\"><img width=200 style=\"display: block; position:relative; margin: auto;\" src=\"" + img_src + "\"/></a>";
+			pliki_prev_last = pliki_index;
+			kolumn++;
+			pliki_index++;
+            }
+        }
+    }
+function tabela_refresh() 
+    {
+	set_cookie("last_gallery_username",document.forms.namedItem("szukajka").elements.namedItem("username").value);
+	tabela_zapelnij(0,true);
+	}	
+function tabela_next() 
+    {
+	var pplo = pliki_prev_last;
+	tabela_zapelnij(pliki_prev_last+1,false);
+	var tabela = document.getElementById("tabela_miniatur");
+	var tabela_row_miniatur = tabela.rows.namedItem("row_miniatur_0");	
+	if (pplo==pliki_prev_last) 
+		{
+		tabela_row_miniatur.cells[0].colSpan = tabela_kolumn_max;
+		tabela_row_miniatur.cells[0].innerHTML = "Wszystkie miniatury w galerii \"" + pliki_username.valueOf() + "\" zostały już wyświetlone.";
+		}
+	}	
+</script>
+
+<!----------------------------------------------------------------------->
+<!-- ZASADNICZE BODY -->
+<!----------------------------------------------------------------------->
+
+<div id="main">
+<table id="tabela_miniatur">
+<!-- POLE DO FILTROWANIA LISTY MINIATUR NA PODSTAWIE NAZWY UŻYTKOWNIKA -->
+ <tr id="row_filtra"><form name="szukajka">
+ <td colspan=5>Nick: <input type="text" name="username" value="" id="username"> </input><button type="button" onclick="tabela_refresh()" style="margin: 10px;"><b>ZAŁADUJ MINIATURY >></b></button><button type="button" style="float: right; margin: 10px;" onclick="userzy_pokaz_liste()"><b>POKAŻ LISTE GALERII</b></button>
+</form></td></tr>
+<script type="text/javascript">
+var lgun = get_cookie("last_gallery_username");
+if (lgun!=null)
+	document.forms.namedItem("szukajka").elements.namedItem("username").value = lgun; 
+</script>
+
+<!-- MINIATURY -->
+
+ <tr id="row_miniatur_0">
+ <td>MIEJSCE NA MINIATURY
+</td>
+</tr>
+
+<!-- INFORMACJE O WYBRANEJ GALERI, WYBÓR KOLEJNEJ PODSTRONY-->
+<!--
+ <tr id="row_opis">
+ <td colspan=5>Miejsce na opis?
+</td>
+</tr>
+-->
+
+ <tr id="row_button">
+ <td colspan=5><button style="float: right; margin: 10px;" onclick="tabela_next()">KOLEJNA STRONA MINIATUR >></button>
+</td>
+</tr>
+
+ <script type="text/javascript">
+ document.getElementById("row_filtra").cells[0].colSpan = tabela_kolumn_max;
+ document.getElementById("row_button").cells[0].colSpan = tabela_kolumn_max;
+ </script>
+</table>
+</div>
+<!--------------------------------------------------------------------->
+<!-- INSTRUKCJA ------------------------------------------------>
+<!--------------------------------------------------------------------->
+<div id="instrukcje"><span style="text-align: justify;">
+Kliknij na miniaturce aby zobaczyć w rozdzielczości 640x480. <br> Kliknij przycisk "Pobierz orginał" aby otworzyć w pełnej rozdzielczości na karcie obok. <br>Jeżeli chcesz pobrać w orginale poczekaj na załadowanie, a później wybierz prawym przyciskiem w menu "Zapisz jako.."<br>Kliknij ponownie na obrazku lub naciśnij "Ukryj" aby ukryć okienko.
+ <hr>
+</span></div>
+<!--------------------------------------------------------------------->
+<!-- STOPKA FOTKA GRUPOWA ------------------------------->
+<!--------------------------------------------------------------------->
+ <div id="stopka_fotka" style="display: none;display:table-cell; vertical-align:middle; height: auto;width: 100%;"></div>
+<!--------------------------------------------------------------------->
+<!-- STOPKA ------------------------------------------------------->
+<!--------------------------------------------------------------------->
+ <div id="bottom">
+ <hr>
+ <div id="stopka">
+ <div style="display: inline-block"><div id="stopka-triangleu"></div><div id="stopka-triangleb"></div></div><div id="stopka-text"><b>COPYRIGHT <a href="http://sstsoft.pl" target="_blank">stasinek</a> 2016r w prezencie dla dobreprogramy.pl</b></div><div style="display: inline-block; float: right;"><div id="stopka-triangle2u"></div><div id="stopka-triangle2b"></div></div>
+</div>
+ <hr>
+</div>
+
+<!-- KONIEC BODY! -->
+</body>
+<!-- KONIEC HTML! -->
+</html>

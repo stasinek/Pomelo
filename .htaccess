@@ -1,0 +1,94 @@
+Options -Indexes
+
+# ---
+# Uncomment these lines to change PHP parameters if you are using the PHP Apache module
+# ---
+#<IfModule mod_php5.c>
+#	php_value max_execution_time 200
+#	php_value post_max_size 200M
+#	php_value upload_max_size 200M
+#	php_value upload_max_filesize 20M
+#	php_value max_file_uploads 100
+#</IfModule>
+#<IfModule mod_php7.c>
+#	php_value max_execution_time 200
+#	php_value post_max_size 200M
+#	php_value upload_max_size 200M
+#	php_value upload_max_filesize 20M
+#	php_value max_file_uploads 100
+#</IfModule>
+
+# ---
+# Uncomment these lines when you want to allow access to the Lychee API from different origins
+# ---
+#Header add Access-Control-Allow-Origin "*"
+#Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+#Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.php index.html
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+# Apache < 2.4
+
+<Files ".htaccess">
+Order Allow,Deny
+Deny from All
+</Files>
+
+<Files ".gitignore">
+Order Allow,Deny
+Deny from All
+</Files>
+
+<Files ".gitattributes">
+Order Allow,Deny
+Deny from All
+</Files>
+
+<Files ".git">
+Order Allow,Deny
+Deny from All
+</Files>
+
+<Files ".github">
+Order Allow,Deny
+Deny from All
+</Files>
+
+<Files "config.php">
+Order Allow,Deny
+Deny from All
+</Files>
+
+</IfModule>
+
+<IfModule mod_authz_core.c>
+# Apache >= 2.4 Deny, Order obsolete
+
+<Files ".htaccess">
+Require all denied
+</Files>
+
+<Files ".gitignore">
+Require all denied
+</Files>
+
+<Files ".gitiattibutes">
+Require all denied
+</Files>
+
+<Files ".git">
+Require all denied
+</Files>
+
+<Files ".github">
+Require all denied
+</Files>
+
+<Files "config.php">
+Require all denied
+</Files>
+
+</IfModule>
